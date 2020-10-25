@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 export default function Flashcard(props) {
   const { flashcard } = props;
   const [flip, setFlip] = useState(false);
-  console.log(flashcard.question);
   return (
     <div
       className={`card ${flip ? 'flip' : ''}`}
