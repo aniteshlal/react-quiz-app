@@ -8,7 +8,9 @@ function App() {
   const [flashcards, setflashcards] = useState(SAMPLE_FLASHCARDS);
   return (
     <>
-      <FlashcardsList flashcards={flashcards} />
+      <div className='container'>
+        <FlashcardsList flashcards={flashcards} />
+      </div>
     </>
   );
 }
