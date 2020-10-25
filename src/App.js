@@ -4,8 +4,34 @@ import './App.css';
 import axios from 'axios';
 
 function App() {
-  const [flashcards, setflashcards] = useState(SAMPLE_FLASHCARDS);
+  const [flashcards, setFlashcards] = useState(SAMPLE_FLASHCARDS);
 
+  function decodeString(str) {
+    /*this function is to help format the the questions and answers properly because they contain html when returned from the api call */
+    const textArea = document.createElement('textarea');
+    textArea.innerHTML = str;
+    return textArea.value;
+  }
+
+  useEffect(() => {
+    axios.get('https://opentdb.com/api.php?amount=10').then((res) => {
+      setFlashcards(
+        res.data.results.map((questionItem, index) => {
+          const answer = decodeString(questionItem.correct_answer);
+          const options = [
+            ...questionItem.incorrect_answers.map((a) => decodeString(a)),
+            answer,
+          ];
+          return {
+            id: `${index}-${Date.now()}`,
+            question: decodeString(questionItem.question),
+            answer: answer,
+            options: options.sort(() => Math.random() - 0.5),
+          };
+        })
+      );
+    });
+  }, []);
   return (
     <>
       <div className='container'>
