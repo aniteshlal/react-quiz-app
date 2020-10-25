@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Flashcard() {
+export default function Flashcard({ flashcard }) {
   return (
     <>
-      <div>This is where the question will be going</div>
+      <div className='card'>{flashcard.question}</div>
     </>
   );
 }
